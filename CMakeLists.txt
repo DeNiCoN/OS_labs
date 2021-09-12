@@ -9,6 +9,12 @@ if (UNIX)
     )
 
   target_link_libraries(philosophers PRIVATE Threads::Threads)
+
+  add_executable(readerswriters
+    readerswriters.c
+    )
+
+  target_link_libraries(readerswriters PRIVATE Threads::Threads)
 elseif (MSVC)
 
 endif()

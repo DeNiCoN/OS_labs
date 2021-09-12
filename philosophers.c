@@ -31,10 +31,17 @@ typedef struct
     void* result;
 } philosopher_info;
 
+void wait()
+{
+    //Min 1 second, max 10 seconds
+    unsigned int time = rand() % 9000000 + 1000000;
+    usleep(time);
+}
+
 void think(int id)
 {
     printf("%d thinks\n", id);
-    sleep(rand() % 10);
+    wait();
 }
 
 pthread_mutex_t* left(int id)
@@ -59,7 +66,7 @@ void aquire_forks(int id)
         }
         printf("%d failed to pickup second fork :(\n", id);
         pthread_mutex_unlock(left(id));
-        sleep(rand() % 3);
+        wait();
     }
 
 }
@@ -74,7 +81,7 @@ void eat(int id)
 {
     aquire_forks(id);
     printf("%d eats\n", id);
-    sleep(rand() % 10);
+    wait();
     drop_forks(id);
 }
 
