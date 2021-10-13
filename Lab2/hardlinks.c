@@ -106,8 +106,24 @@ int main(int argc, char* argv[])
     vec_init(&files, sizeof(char[MAX_PATH_SIZE]));
 
     const char* root_path = argv[1];
-    //Recurve over given path and save all inodes with multiple hardlinks
-    recurve(root_path, save_inodes);
+
+
+    struct stat root_stat;
+
+    if (stat(root_path, &root_stat) != 0)
+    {
+        return -1;
+    }
+
+    if (S_ISDIR(root_stat.st_mode))
+    {
+        //Recurve over given path and save all inodes with multiple hardlinks
+        recurve(root_path, save_inodes);
+    }
+    else
+    {
+        save_inodes(root_path);
+    }
 
     vec_qsort(&inodes, cmpfunc);
 
@@ -117,7 +133,7 @@ int main(int argc, char* argv[])
     //Recurve over whole filesystem and find inodes
     recurve("/", print_if_same);
 
-    vec_qsort(&files, strcmp);
+    vec_qsort(&files, (int(*)(const void*, const void*))strcmp);
     vec_print(&files, "%s\n");
     vec_destroy(&inodes);
     return 0;

@@ -6,6 +6,11 @@ if (UNIX)
     hardlinks.c
     vec.h
     )
+
+  add_executable(myls
+    ls.c
+    vec.h
+    )
 elseif (MSVC)
 
 endif()
