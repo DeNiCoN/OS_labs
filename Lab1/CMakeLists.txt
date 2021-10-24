@@ -13,5 +13,11 @@ if (UNIX)
 
   target_link_libraries(readerswriters PRIVATE Threads::Threads)
 elseif (MSVC)
+  add_executable(prodcons
+    prodcons.c
+    )
 
+  add_executable(barber
+    barber.c 
+    )
 endif()
