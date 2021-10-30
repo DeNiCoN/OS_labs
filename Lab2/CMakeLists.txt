@@ -12,5 +12,17 @@ if (UNIX)
     vec.h
     )
 elseif (MSVC)
+  add_executable(mydir
+    mydir.c
+    )
+  target_compile_definitions(mydir
+    PRIVATE UNICODE
+  )
+  add_executable(lsdrives
+  lsdrives.c
+  )
+  target_compile_definitions(lsdrives
+    PRIVATE UNICODE
+  )
 
 endif()
